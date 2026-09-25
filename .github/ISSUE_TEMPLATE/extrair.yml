@@ -1,0 +1,25 @@
+name: "🔎 Testar o JurisLens"
+description: O agente lê um processo judicial e responde nesta issue com os dados extraídos.
+title: "[JurisLens] extração"
+labels: ["jurislens"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Escolha **gerar um processo sintético** para ver o agente em ação sem precisar de nada, ou cole o texto de um processo.
+        ⚠️ **Não cole dados reais de pessoas.** Issues são públicas. Use processos sintéticos ou anonimizados.
+  - type: dropdown
+    id: modo
+    attributes:
+      label: Modo
+      options:
+        - Gerar um processo sintético pra mim
+        - Vou colar um texto
+    validations:
+      required: true
+  - type: textarea
+    id: texto
+    attributes:
+      label: Texto do processo
+      description: Capa do PJe, petição inicial ou intimação (até 15 mil caracteres).
+      render: text

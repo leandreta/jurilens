@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JurisLens</title>
+<meta name="description" content="Agente de IA que lê processos judiciais: regras + validação matemática + Claude, com benchmark que se atualiza sozinho.">
+<style>
+  :root {
+    --bg: #f8fafc; --panel: #ffffff; --ink: #0f172a; --muted: #475569; --line: #e2e8f0;
+    --accent: #16a34a; --accent-ink: #ffffff; --rules: #94a3b8; --ai: #8b5cf6; --hy: #16a34a;
+    --bad: #dc2626; --code: #f1f5f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1120; --panel: #111a2e; --ink: #f1f5f9; --muted: #94a3b8; --line: #1e293b;
+      --accent: #22c55e; --accent-ink: #052e16; --rules: #64748b; --ai: #a78bfa; --hy: #22c55e;
+      --bad: #f87171; --code: #0f172a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1120; --panel: #111a2e; --ink: #f1f5f9; --muted: #94a3b8; --line: #1e293b;
+    --accent: #22c55e; --accent-ink: #052e16; --rules: #64748b; --ai: #a78bfa; --hy: #22c55e;
+    --bad: #f87171; --code: #0f172a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 16px 80px; }
+  h1 { font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+  h2 { font-size: 1.35rem; margin: 56px 0 16px; }
+  p.lead { font-size: 1.15rem; color: var(--muted); max-width: 680px; margin: 0 0 28px; }
+  .tag { display: inline-block; font-size: .8rem; font-weight: 600; color: var(--accent);
+         border: 1px solid var(--accent); border-radius: 999px; padding: 2px 10px; margin-bottom: 16px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-block; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none;
+         border: 1px solid var(--line); color: var(--ink); background: var(--panel); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 1rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .step { font-size: .8rem; font-weight: 700; color: var(--accent); }
+  .kpi { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .kpi small { font-size: .9rem; color: var(--muted); font-weight: 500; }
+  .bars { display: grid; gap: 6px; }
+  .bar-row { display: grid; grid-template-columns: 150px 1fr 56px; gap: 10px; align-items: center; font-size: .85rem; }
+  .bar-row span:first-child { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .track { background: var(--line); border-radius: 4px; height: 10px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 4px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); margin-bottom: 12px; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  input { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--code);
+          color: var(--ink); font: 1rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .verdict { margin-top: 10px; font-weight: 600; min-height: 1.6em; }
+  .ok { color: var(--hy); } .no { color: var(--bad); }
+  code { background: var(--code); padding: 1px 6px; border-radius: 6px; font-size: .9em; }
+  footer { margin-top: 64px; color: var(--muted); font-size: .9rem; }
+  a { color: var(--accent); }
+  @media (max-width: 520px) { .bar-row { grid-template-columns: 110px 1fr 48px; } }
+</style>
+</head>
+<body>
+<main>
+  <span class="tag">IA aplicada · automação · LGPD</span>
+  <h1>JurisLens</h1>
+  <p class="lead">Um agente que lê processos judiciais brasileiros e devolve dados estruturados.
+    Usa regras quando elas bastam, a IA só onde precisa, e rejeita qualquer valor que a matemática
+    ou o próprio documento não confirmem.</p>
+  <div class="cta">
+    <a class="btn primary" id="try" href="#">Testar agora: abrir uma issue ↗</a>
+    <a class="btn" id="repo" href="#">Ver o código</a>
+  </div>
+
+  <h2>Como funciona</h2>
+  <div class="grid">
+    <div class="card"><div class="step">1 · REGRAS</div><h3>Regex determinístico</h3>
+      <p>Custo zero e auditável. Resolve a maior parte dos layouts estruturados do PJe.</p></div>
+    <div class="card"><div class="step">2 · VALIDAÇÃO</div><h3>Dígito verificador</h3>
+      <p>CPF, CNPJ, número CNJ (MOD 97), OAB e datas. Valor inválido volta para a fila.</p></div>
+    <div class="card"><div class="step">3 · CLAUDE</div><h3>IA só no que falta</h3>
+      <p>Prompt focado nos campos pendentes, com saída validada contra um schema Pydantic.</p></div>
+    <div class="card"><div class="step">4 · ANTI-ALUCINAÇÃO</div><h3>Ancoragem no texto</h3>
+      <p>Um valor da IA que não aparece no documento é descartado. Vazio é melhor que inventado.</p></div>
+  </div>
+
+  <h2>Benchmark ao vivo</h2>
+  <p id="bench-meta" style="color:var(--muted);margin-top:-6px">Carregando…</p>
+  <div class="grid" id="kpis"></div>
+  <div class="card" style="margin-top:16px">
+    <div class="legend" id="legend"></div>
+    <div class="bars" id="bars"></div>
+  </div>
+
+  <h2>Experimente: validador no navegador</h2>
+  <div class="card">
+    <p style="margin:0 0 12px;color:var(--muted)">Cole um número CNJ, CPF ou CNPJ. É a mesma matemática
+      que o agente usa para barrar dados inventados. Nada sai do seu navegador.</p>
+    <input id="val" placeholder="8000958-06.2024.8.05.0255" autocomplete="off" aria-label="Número para validar">
+    <div class="verdict" id="verdict" aria-live="polite"></div>
+  </div>
+
+  <footer>
+    Dados 100% sintéticos, gerados com gabarito. Benchmark refeito toda semana pelo GitHub Actions.
+    <br>Feito com Python, Claude e GitHub Actions.
+  </footer>
+</main>
+<script>
+  const guessRepo = () => {
+    const h = location.hostname;
+    if (h.endsWith(".github.io")) {
+      const user = h.split(".")[0];
+      const name = location.pathname.split("/").filter(Boolean)[0] || `${user}.github.io`;
+      return `https://github.com/${user}/${name}`;
+    }
+    return "https://github.com/leandreta/jurilens";
+  };
+  const repo = guessRepo();
+  document.getElementById("repo").href = repo;
+  document.getElementById("try").href = `${repo}/issues/new?template=extrair.yml`;
+
+  const LABEL = { regras: "Só regras", ia: "Só IA (Claude)", hibrido: "Híbrido JurisLens" };
+  const COLOR = { regras: "var(--rules)", ia: "var(--ai)", hibrido: "var(--hy)" };
+  const pct = v => (v * 100).toFixed(1).replace(".", ",") + "%";
+
+  fetch("data/latest.json", { cache: "no-store" }).then(r => r.json()).then(rep => {
+    document.getElementById("bench-meta").textContent =
+      `Última execução: ${rep.generated_at} · ${rep.dataset.n} processos sintéticos` +
+      (rep.model ? ` · modelo ${rep.model}` : " · IA ainda não configurada, exibindo só regras");
+    const kpis = document.getElementById("kpis");
+    rep.results.forEach(r => {
+      const d = document.createElement("div"); d.className = "card";
+      d.innerHTML = `<div class="step" style="color:${COLOR[r.strategy]}">${LABEL[r.strategy]}</div>
+        <div class="kpi">${pct(r.field_accuracy)} <small>acurácia</small></div>
+        <p>${pct(r.perfect_docs)} dos documentos 100% corretos · IA em ${pct(r.llm_call_rate)} ·
+        US$ ${r.cost_per_1k_docs_usd.toFixed(2)} / mil docs</p>`;
+      kpis.appendChild(d);
+    });
+    document.getElementById("legend").innerHTML = rep.results.map(r =>
+      `<span><span class="dot" style="background:${COLOR[r.strategy]}"></span>${LABEL[r.strategy]}</span>`).join("");
+    const bars = document.getElementById("bars");
+    Object.keys(rep.results[0].per_field).forEach(f => {
+      rep.results.forEach((r, i) => {
+        const v = r.per_field[f];
+        const row = document.createElement("div"); row.className = "bar-row";
+        row.innerHTML = `<span>${i === 0 ? f : ""}</span>
+          <div class="track"><div class="fill" style="width:${v * 100}%;background:${COLOR[r.strategy]}"></div></div>
+          <span style="text-align:right;font-variant-numeric:tabular-nums">${pct(v)}</span>`;
+        row.title = `${f} · ${LABEL[r.strategy]}: ${pct(v)}`;
+        bars.appendChild(row);
+      });
+    });
+  }).catch(() => { document.getElementById("bench-meta").textContent = "Resultados indisponíveis no momento."; });
+
+  // Mesmos algoritmos de jurislens/validators.py
+  const digits = s => s.replace(/\D/g, "");
+  const cpfOk = d => {
+    if (d.length !== 11 || /^(\d)\1+$/.test(d)) return false;
+    for (const size of [9, 10]) {
+      let t = 0; for (let i = 0; i < size; i++) t += +d[i] * (size + 1 - i);
+      if ((t * 10) % 11 % 10 !== +d[size]) return false;
+    }
+    return true;
+  };
+  const cnpjOk = d => {
+    if (d.length !== 14 || /^(\d)\1+$/.test(d)) return false;
+    const w = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    for (const size of [12, 13]) {
+      let t = 0; for (let i = 0; i < size; i++) t += +d[i] * w[i + 13 - size];
+      let c = 11 - t % 11; if (c >= 10) c = 0;
+      if (c !== +d[size]) return false;
+    }
+    return true;
+  };
+  const cnjOk = d => {
+    if (d.length !== 20) return false;
+    const base = BigInt(d.slice(0, 7) + d.slice(9) + "00");
+    return (98n - base % 97n).toString().padStart(2, "0") === d.slice(7, 9);
+  };
+  const out = document.getElementById("verdict");
+  document.getElementById("val").addEventListener("input", e => {
+    const d = digits(e.target.value);
+    const kind = d.length === 20 ? ["número CNJ", cnjOk] : d.length === 14 ? ["CNPJ", cnpjOk]
+               : d.length === 11 ? ["CPF", cpfOk] : null;
+    if (!d) { out.textContent = ""; return; }
+    if (!kind) { out.className = "verdict"; out.textContent = `${d.length} dígitos: continue digitando…`; return; }
+    const ok = kind[1](d);
+    out.className = "verdict " + (ok ? "ok" : "no");
+    out.textContent = ok ? `✓ ${kind[0]} válido` : `✗ ${kind[0]} inválido: dígito verificador não confere`;
+  });
+</script>
+</body>
+</html>

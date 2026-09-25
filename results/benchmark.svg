@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="440" viewBox="0 0 760 440" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="12">
+<rect width="760" height="440" rx="12" fill="#0f172a"/>
+<text x="20" y="30" fill="#f8fafc" font-size="16" font-weight="600">Acurácia por campo — processos sintéticos</text>
+<rect x="20" y="44" width="10" height="10" rx="2" fill="#94a3b8"/><text x="35" y="53" fill="#cbd5e1">Só regras (regex) (90%)</text>
+<text x="162" y="83.0" fill="#cbd5e1" text-anchor="end">numero_processo</text>
+<rect x="170" y="72" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="73.0" width="547.6" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="105.0" fill="#cbd5e1" text-anchor="end">classe</text>
+<rect x="170" y="94" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="95.0" width="360.9" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="127.0" fill="#cbd5e1" text-anchor="end">orgao_julgador</text>
+<rect x="170" y="116" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="117.0" width="510.2" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="149.0" fill="#cbd5e1" text-anchor="end">uf</text>
+<rect x="170" y="138" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="139.0" width="560.0" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="171.0" fill="#cbd5e1" text-anchor="end">valor_causa</text>
+<rect x="170" y="160" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="161.0" width="560.0" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="193.0" fill="#cbd5e1" text-anchor="end">assunto</text>
+<rect x="170" y="182" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="183.0" width="367.1" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="215.0" fill="#cbd5e1" text-anchor="end">autor_nome</text>
+<rect x="170" y="204" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="205.0" width="541.4" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="237.0" fill="#cbd5e1" text-anchor="end">autor_documento</text>
+<rect x="170" y="226" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="227.0" width="560.0" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="259.0" fill="#cbd5e1" text-anchor="end">reu_nome</text>
+<rect x="170" y="248" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="249.0" width="553.8" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="281.0" fill="#cbd5e1" text-anchor="end">reu_documento</text>
+<rect x="170" y="270" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="271.0" width="541.4" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="303.0" fill="#cbd5e1" text-anchor="end">advogado_nome</text>
+<rect x="170" y="292" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="293.0" width="541.4" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="325.0" fill="#cbd5e1" text-anchor="end">advogado_oab</text>
+<rect x="170" y="314" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="315.0" width="560.0" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="347.0" fill="#cbd5e1" text-anchor="end">data_audiencia</text>
+<rect x="170" y="336" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="337.0" width="429.4" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="369.0" fill="#cbd5e1" text-anchor="end">hora_audiencia</text>
+<rect x="170" y="358" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="359.0" width="429.4" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="162" y="391.0" fill="#cbd5e1" text-anchor="end">justica_gratuita</text>
+<rect x="170" y="380" width="560.0" height="18" fill="#1e293b" rx="3"/>
+<rect x="170" y="381.0" width="485.4" height="16.0" fill="#94a3b8" rx="2"/>
+<text x="20" y="426" fill="#64748b">Atualizado automaticamente em 2026-09-25T14:18Z · n=90</text>
+</svg>

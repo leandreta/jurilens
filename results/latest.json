@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-09-25T14:18Z",
+  "dataset": {
+    "n": 90,
+    "seed": 2026,
+    "layouts": [
+      "capa_pje",
+      "intimacao",
+      "peticao_inicial"
+    ]
+  },
+  "model": null,
+  "results": [
+    {
+      "strategy": "regras",
+      "n": 90,
+      "field_accuracy": 0.8985,
+      "perfect_docs": 0.4444,
+      "per_field": {
+        "numero_processo": 0.9778,
+        "classe": 0.6444,
+        "orgao_julgador": 0.9111,
+        "uf": 1.0,
+        "valor_causa": 1.0,
+        "assunto": 0.6556,
+        "autor_nome": 0.9667,
+        "autor_documento": 1.0,
+        "reu_nome": 0.9889,
+        "reu_documento": 0.9667,
+        "advogado_nome": 0.9667,
+        "advogado_oab": 1.0,
+        "data_audiencia": 0.7667,
+        "hora_audiencia": 0.7667,
+        "justica_gratuita": 0.8667
+      },
+      "by_layout": {
+        "capa_pje": 0.98,
+        "intimacao": 0.9756,
+        "peticao_inicial": 0.74
+      },
+      "cost_per_1k_docs_usd": 0.0,
+      "llm_call_rate": 0.0,
+      "llm_errors": 0,
+      "p50_latency_s": 0.0
+    }
+  ]
+}
