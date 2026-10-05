@@ -51,7 +51,7 @@ Cada campo sai marcado com a origem: 🧮 regra · 🤖 IA · 🔗 regra + IA ·
 Toda segunda-feira um workflow do GitHub Actions gera o conjunto de teste, roda as três estratégias e **reescreve esta seção sozinho**. Os números abaixo não foram digitados por ninguém.
 
 <!-- BENCH:START -->
-_Última execução: **2026-09-28T17:37Z** · 90 processos sintéticos · layouts: capa_pje, intimacao, peticao_inicial_
+_Última execução: **2026-10-05T18:23Z** · 90 processos sintéticos · layouts: capa_pje, intimacao, peticao_inicial_
 
 | Estratégia | Acurácia por campo | Documentos 100% corretos | Chamadas à IA | Custo / 1 mil docs |
 |---|---:|---:|---:|---:|
